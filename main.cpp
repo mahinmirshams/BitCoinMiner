@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "stdio.h"
 #include <string>
 #include <bitset>
@@ -24,10 +25,29 @@ int calculate_zero(int m){
 
 }
 
+
+int array_to_string(int arr[])
+{
+
+
+    std::ostringstream os;
+    for (int i: arr) {
+        os << i;
+    }
+
+    std::string str(os.str());
+    std::cout << str;
+
+    return 0;
+}
+
+
 int padding_and_parsing (int l){
     int k = calculate_zero(l+1);
+    int zeroes [k] = {0};
 
-    int out = (l + 1 + );
+    array_to_string(zeroes);
+    int out = reinterpret_cast<int>(l + 1 + zeroes);
 }
 
 
@@ -56,4 +76,6 @@ int main() {
     }
     return 0;
 }
+
+
 
