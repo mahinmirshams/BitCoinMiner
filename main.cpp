@@ -41,13 +41,6 @@ int array_to_int(int arr[])
 }
 
 
-int padding_and_parsing (int l){
-    int k = calculate_zero(l+1);
-    int zeroes [k] = {0};
-
-    int zero = array_to_int(zeroes);
-    int out =(l + 1 + zero);
-}
 
 
 
@@ -66,15 +59,55 @@ cat( const std::bitset<N1>& a, const std::bitset<N2>& b ) { return std::bitset<N
 
 
 int main() {
-    string input = "Hello World";
+    string input = "abc";
+
+    return 0;
+}
+
+bitset string_to_binary (string input){
+
     bitset msg_bin ;
 
     for (std::size_t i = 0; i < input.size(); ++i)
     {
         msg_bin = cat( msg_bin, (bitset<8>(input.c_str()[i])) );
     }
-    return 0;
+
+    return msg_bin;
+
 }
+//bitset convert(int x) {
+//    bitset ret;
+//    while(x) {
+//        if (x&1)
+//            ret.push_back(1);
+//        else
+//            ret.push_back(0);
+//        x>>=1;
+//    }
+//    reverse(ret.begin(),ret.end());
+//    return ret;
+//}
+
+
+int padding_and_parsing (string input){
+    int l = message_length(input);
+    int k = calculate_zero(l+1);
+    bitset<k> zeros;
+    bitset<1> one(1);
+
+    bitset l_binary = bitset<64>(l);
+
+    //int zeroes [k] = {0};
+
+   // int zero = array_to_int(zeroes);
+
+    bitset message_binary = string_to_binary(input);
+    bitset temp = cat(message_binary , one);
+    bitset temp2 = cat(temp , zeros);
+    bitset out = cat(temp2 , l_binary);
+}
+
 
 
 
