@@ -1,5 +1,10 @@
 #include <iostream>
 #include "stdio.h"
+#include <string>
+#include <bitset>
+#include <type_traits>
+#include <limits>
+
 using namespace std;
 
 
@@ -26,8 +31,29 @@ int padding_and_parsing (int l){
 }
 
 
+
+constexpr std::size_t ULONGLONG_BITS = std::numeric_limits<unsigned long long>::digits ;
+
+/*
+template< std::size_t N1, std::size_t N2 >
+typename std::enable_if< (N1+N2) <= ULONGLONG_BITS, std::bitset<N1+N2> >::type // efficient for small sizes
+cat( const std::bitset<N1>& a, const std::bitset<N2>& b ) { return ( a.to_ullong() << N2 ) + b.to_ullong() ; }
+*/
+
+template< std::size_t N1, std::size_t N2 >
+typename std::enable_if< ( (N1+N2) > ULONGLONG_BITS ), std::bitset<N1+N2> >::type
+cat( const std::bitset<N1>& a, const std::bitset<N2>& b ) { return std::bitset<N1+N2>( a.to_string() + b.to_string() ) ; }
+
+
+
 int main() {
-    cout << "Hello, World!" << std::endl;
+    string input = "Hello World";
+    bitset output ;
+
+    for (std::size_t i = 0; i < input.size(); ++i)
+    {
+         output = cat( output, (bitset<8>(input.c_str()[i])) );
+    }
     return 0;
 }
 
