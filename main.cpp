@@ -5,6 +5,7 @@
 #include <bitset>
 #include <type_traits>
 #include <limits>
+#include <dynamic_bitset.hpp>
 
 using namespace std;
 
@@ -56,14 +57,6 @@ template< std::size_t N1, std::size_t N2 >
 typename std::enable_if< ( (N1+N2) > ULONGLONG_BITS ), std::bitset<N1+N2> >::type
 cat( const std::bitset<N1>& a, const std::bitset<N2>& b ) { return std::bitset<N1+N2>( a.to_string() + b.to_string() ) ; }
 
-
-
-int main() {
-    string input = "abc";
-
-    return 0;
-}
-
 bitset string_to_binary (string input){
 
     bitset msg_bin ;
@@ -76,24 +69,11 @@ bitset string_to_binary (string input){
     return msg_bin;
 
 }
-//bitset convert(int x) {
-//    bitset ret;
-//    while(x) {
-//        if (x&1)
-//            ret.push_back(1);
-//        else
-//            ret.push_back(0);
-//        x>>=1;
-//    }
-//    reverse(ret.begin(),ret.end());
-//    return ret;
-//}
-
 
 int padding_and_parsing (string input){
     int l = message_length(input);
     int k = calculate_zero(l+1);
-    bitset<k> zeros;
+    dynamic_bitset<> dynamic_bitset;
     bitset<1> one(1);
 
     bitset l_binary = bitset<64>(l);
@@ -107,6 +87,26 @@ int padding_and_parsing (string input){
     bitset temp2 = cat(temp , zeros);
     bitset out = cat(temp2 , l_binary);
 }
+
+int main() {
+    string input = "abc";
+    padding_and_parsing(input);
+    return 0;
+}
+
+
+//bitset convert(int x) {
+//    bitset ret;
+//    while(x) {
+//        if (x&1)
+//            ret.push_back(1);
+//        else
+//            ret.push_back(0);
+//        x>>=1;
+//    }
+//    reverse(ret.begin(),ret.end());
+//    return ret;
+//}
 
 
 
