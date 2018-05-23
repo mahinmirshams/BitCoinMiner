@@ -26,19 +26,18 @@ int calculate_zero(int m){
 }
 
 
-int array_to_string(int arr[])
+int array_to_int(int arr[])
 {
 
 
-    std::ostringstream os;
-    for (int i: arr) {
-        os << i;
+    int number = 0;
+
+    for (int i = 0; i < sizeof(arr) ; i++) {
+        number *= 10;
+        number += arr[i];
     }
 
-    std::string str(os.str());
-    std::cout << str;
-
-    return 0;
+    return number;
 }
 
 
@@ -46,8 +45,8 @@ int padding_and_parsing (int l){
     int k = calculate_zero(l+1);
     int zeroes [k] = {0};
 
-    array_to_string(zeroes);
-    int out = reinterpret_cast<int>(l + 1 + zeroes);
+    int zero = array_to_int(zeroes);
+    int out =(l + 1 + zero);
 }
 
 
