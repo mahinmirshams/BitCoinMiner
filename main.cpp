@@ -41,27 +41,13 @@ int array_to_string(int arr[])
     return 0;
 }
 
-int array_to_int(int arr[])
-{
-
-
-    int number = 0;
-
-    for (int i = 0; i < sizeof(arr) ; i++) {
-        number *= 10;
-        number += arr[i];
-    }
-
-    return number;
-}
 
 int padding_and_parsing (int l){
     int k = calculate_zero(l+1);
     int zeroes [k] = {0};
 
-    int zero =array_to_int(zeroes);
-    int out = (l + 1 + zero);
-    return out;
+    array_to_string(zeroes);
+    int out = reinterpret_cast<int>(l + 1 + zeroes);
 }
 
 
@@ -82,14 +68,12 @@ cat( const std::bitset<N1>& a, const std::bitset<N2>& b ) { return std::bitset<N
 
 int main() {
     string input = "Hello World";
-    bitset output ;
+    bitset msg_bin ;
 
     for (std::size_t i = 0; i < input.size(); ++i)
     {
-         output = cat( output, (bitset<8>(input.c_str()[i])) );
+        msg_bin = cat( msg_bin, (bitset<8>(input.c_str()[i])) );
     }
-
-
     return 0;
 }
 
