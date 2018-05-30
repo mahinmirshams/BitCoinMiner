@@ -34,7 +34,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0f9b3c6b-bd9b-4e7e-9fd4-198c68f44fa4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,7 +58,7 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
+            <state relative-caret-position="54">
               <caret line="49" column="27" lean-forward="true" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="27" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -161,7 +160,7 @@
       <workItem from="1527077380416" duration="3364000" />
       <workItem from="1527082726117" duration="4683000" />
       <workItem from="1527317448158" duration="3376000" />
-      <workItem from="1527672168904" duration="6613000" />
+      <workItem from="1527672168904" duration="6776000" />
     </task>
     <task id="LOCAL-00001" summary="minor change">
       <created>1527082504409</created>
@@ -191,11 +190,18 @@
       <option name="project" value="LOCAL" />
       <updated>1527682409342</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="some bugs fixed">
+      <created>1527687114476</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1527687114477</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19073000" />
+    <option name="totallyTimeSpent" value="19236000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -244,7 +250,8 @@
     <MESSAGE value="fixed padding" />
     <MESSAGE value="main added" />
     <MESSAGE value="minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+    <MESSAGE value="some bugs fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="some bugs fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -341,7 +348,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
+        <state relative-caret-position="54">
           <caret line="49" column="27" lean-forward="true" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="27" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
