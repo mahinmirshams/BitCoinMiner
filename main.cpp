@@ -9,7 +9,7 @@
 #include <vector>
 
 using namespace std;
-int  binary[1024];
+
 
 int message_length (string input){
     return static_cast<int>(input.length() * 8);
@@ -20,8 +20,9 @@ int calculate_zero(int m){
 
     int i = 0;
 
-    while(!(m+1 % 448 == 0)){
+    while(i+1 +m % 512 != 448 ){
         i++;
+
     }
     return i;
 
@@ -42,12 +43,13 @@ int array_to_int(int arr[])
     return number;
 }
 
-int* decimal_to_binary(int decimal){
-    int i = 0;
+vector<int> decimal_to_binary(int decimal){
+    vector<int> binary;
+
     while (decimal>0){
-        binary[i] = decimal%2;
-       decimal = decimal/2;
-        i++;
+        binary.(decimal%2);
+        decimal = decimal/2;
+
     }
     return binary;
 }
@@ -80,21 +82,23 @@ int* decimal_to_binary(int decimal){
 //
 //}
 
-int padding_and_parsing (string input){
+void padding_and_parsing (string input){
 
-    vector <int> :: iterator j;
 
     int l = message_length(input);
-    int k = calculate_zero(l+1);
-    int zeros[k]={0};
-   // boost::dynamic_bitset<> test1;
-   // bitset<1> one(1);
+    int k = calculate_zero(l);
+    vector<int> zeros (k,0);
+    // boost::dynamic_bitset<> test1;
+    // bitset<1> one(1);
+    vector<int> one (1,1);
+    vector<int> d2b;
 
-   // int zero = array_to_int(zeroes);
-     int l_binary[] = decimal_to_binary(l);
+    // int zero = array_to_int(zeroes);
+    vector<int> l_binary = decimal_to_binary(l);
     vector<int> char_binary;
     for (int i  = 0; i <input.length() ; i++) {
-     char_binary = decimal_to_binary((int)input.at(i));
+     d2b = decimal_to_binary((int)input.at(i)) ;
+        char_binary.insert(char_binary.end()  ,d2b.begin(), d2b.end());
     }
 
     vector<int> block;
@@ -103,8 +107,13 @@ int padding_and_parsing (string input){
     block.insert(block.end(), zeros.begin(),zeros.end());
     block.insert(block.end(), l_binary.begin(),l_binary.end());
 
-    for (vector<char>::const_iterator j = block.begin(); j != block.end(); ++j)
-        cout << *j << ' ';
+//    vector <int> :: iterator j = block.begin();
+//    for (vector<char>::const_iterator j ; j != block.end(); ++j) {
+//        cout << *j << ' ';
+//    }
+
+    for (auto i = block.begin(); i != block.end(); ++i)
+         cout << *i << ' ';
 
 //    for(int j=block.begin(); j!= block.end(); ++j)
 //        cout<< *j << '\t';
