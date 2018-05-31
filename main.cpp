@@ -53,25 +53,30 @@ int array_to_int(int arr[])
 //    }
 //    return binary;
 //}
-
 vector<int> decimal_to_binary(int decimal){
+    vector<int> binary;
 
-        vector<int> binary;
-
-        unsigned long i = 0;
-        while (decimal>0){
-            binary.push_back(decimal%2);
-            decimal = decimal/2;
-            i++;
-        }
-        unsigned long padding = 8-(i%8);
-        while (padding > 0) {
-            binary.push_back(0);
-            padding--;
-        }
-        binary.reserve(i);
-        return binary;
+    while (decimal>0){
+        binary.push_back(decimal%2);
+        decimal = decimal/2;
     }
+    unsigned long padding = 8-(binary.size()%8);
+    while (padding > 0) {
+        binary.push_back(0);
+        padding--;
+    }
+    std::reverse(binary.begin(), binary.end());
+    return binary;
+}
+
+
+vector<int> msg_length_decimal_to_binary(int decimal){
+    vector<int> decitob = decimal_to_binary(decimal);
+
+    vector<int> l_binary = (64,decitob);
+    return l_binary;
+
+}
 
 
 //constexpr std::size_t ULONGLONG_BITS = std::numeric_limits<unsigned long long>::digits ;
@@ -111,7 +116,7 @@ void padding_and_parsing (string input){
     vector<int> d2b;
 
     // int zero = array_to_int(zeroes);
-    vector<int> l_binary = decimal_to_binary(l);
+    vector<int> l_binary = msg_length_decimal_to_binary(l);
     vector<int> char_binary;
     for (int i  = 0; i <input.length() ; i++) {
      d2b = decimal_to_binary((int)input.at(i)) ;
