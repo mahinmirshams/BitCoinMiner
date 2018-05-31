@@ -43,18 +43,30 @@ int array_to_int(int arr[])
     return number;
 }
 
+//vector<int> decimal_to_binary(int decimal){
+//    vector<int> binary;
+//
+//    while (decimal>0){
+//        binary.push_back(decimal%2);
+//        decimal = decimal/2;
+//
+//    }
+//    return binary;
+//}
+
 vector<int> decimal_to_binary(int decimal){
     vector<int> binary;
 
+    unsigned long i = 0;
     while (decimal>0){
         binary.push_back(decimal%2);
         decimal = decimal/2;
-
+        i++;
+        binary.reserve(i);
     }
+
     return binary;
 }
-
-
 
 
 //constexpr std::size_t ULONGLONG_BITS = std::numeric_limits<unsigned long long>::digits ;
