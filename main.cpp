@@ -47,7 +47,7 @@ vector<int> decimal_to_binary(int decimal){
     vector<int> binary;
 
     while (decimal>0){
-        binary.(decimal%2);
+        binary.push_back(decimal%2);
         decimal = decimal/2;
 
     }
