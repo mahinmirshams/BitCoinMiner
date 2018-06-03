@@ -29,7 +29,7 @@ string msg_length_decimal_to_binary(string input){
     return binary;
 }
 
-void padding_and_parsing (string input){
+string padding_and_parsing (string input){
     //msg to binary
     string char_binary;
     for (int i  = 0; i <input.length() ; i++) {
@@ -43,16 +43,55 @@ void padding_and_parsing (string input){
     for (int i  = 0; i <calculate_expand(input)-1 ; i++)
         char_binary+='0';
 
-    //end of fuckin world
+
     string l_binary = msg_length_decimal_to_binary(input);
     char_binary+=l_binary;
 
     //test
     cout <<char_binary << ' ';
+    return char_binary;
 }
+
+
+string left_rotate(string s, int d)
+{
+    reverse(s.begin(), s.begin()+d);
+    reverse(s.begin()+d, s.end());
+    reverse(s.begin(), s.end());
+}
+
+// In-place rotates s towards right by d
+string right_rotate(string s, int d)
+{
+    left_rotate(s, s.length()-d);
+    return s;
+}
+
+
+
+//string right_shift(string s, int d){
+//    string
+//    for (int i = 7; i >= 0; i++)
+//    {
+//
+//        s[i] = s[i-d];
+//
+//    }
+//
+//    return s;
+//}
+
 
 int main() {
     string input = "abc";
-    padding_and_parsing(input);
+    string p = padding_and_parsing(input);
+    cout << endl;
+    string r =right_rotate(p, 2);
+    cout <<r << endl;
+//    string sh = right_shift("1100101",2);
+//    cout <<endl << sh;
+
+
+
     return 0;
 }
