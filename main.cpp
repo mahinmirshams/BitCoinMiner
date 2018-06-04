@@ -69,17 +69,17 @@ string right_rotate(string s, int d)
 
 
 
-//string right_shift(string s, int d){
-//    string
-//    for (int i = 7; i >= 0; i++)
-//    {
-//
-//        s[i] = s[i-d];
-//
-//    }
-//
-//    return s;
-//}
+string right_shift(string s, int d){
+
+    for (int i = d; i >= 0; i--) {
+
+
+        s = '0' + s.substr(0, s.length() - 1);
+
+
+    }
+    return s;
+}
 
 
 int main() {
@@ -88,8 +88,8 @@ int main() {
     cout << endl;
     string r =right_rotate(p, 2);
     cout <<r << endl;
-//    string sh = right_shift("1100101",2);
-//    cout <<endl << sh;
+    string sh = right_shift("1100101",5);
+    cout <<endl << sh;
 
 
 
