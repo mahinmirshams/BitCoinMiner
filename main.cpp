@@ -11,7 +11,10 @@
 
 using namespace std;
 
-string M[100] = {"0"};
+string M_512[100] = {"0"};
+string M_32[100] = {"0"};
+string W[64]= {"0"};
+
 
 
 int calculate_expand(string input){
@@ -59,18 +62,18 @@ string padding (string input){
 }
 
 //parsing to 512 blocks
-void parsing (string input){
+int parsing (string input ){
 
     int i = 0;
     for (int index = 0; index < input.length(); index +=512) {
 
            // cout << input.substr(index, 512) << endl;
-        M[i] = input.substr(index, 512);
+        M_512[i] = input.substr(index, 512);
         i++;
     }
+    return  i ;
 
 }
-
 
 string left_rotate(string s, int d)
 {
@@ -100,22 +103,65 @@ string right_shift(string s, int d){
     return s;
 }
 
+string sum_32_bit(string str1 , string str2){
+    string sum = "0";
+    return sum ;
+}
+
+
+string sigma(string x , int num){
+    string output;
+    if(num == 0){
+        string temp1 = sum_32_bit( right_rotate(x , 17) , right_rotate(x , 14));
+        output = sum_32_bit( temp1 , right_shift(x , 12));
+    }
+    else if(num ==1){
+        string temp1 = sum_32_bit( right_rotate(x , 9) , right_rotate(x , 19));
+        output = sum_32_bit( temp1 , right_shift(x , 9));
+
+    }
+    return  output ;
+}
+
+void permutaion_box(){
+
+}
+
+void expansion(string input  ){
+    int i = 0;
+    // create 16 blocks(32 bits) from 512 bit
+    for(int k = 0 ; k < 16 ; k+=32 ){
+        M_32[i] = input.substr(k, 32);
+        i++;
+    }
+    // create W
+    for(int p = 0 ; p < 16 ; p++ ){
+       W[p] = M_32[p];
+    }
+    for(int q = 16 ; q < 63 ; q++ ){
+        W[q] = sum_32_bit(sum_32_bit(sigma(W[q-1] ,1) ,W[q-6]) , sum_32_bit(sigma(W[q-12], 0), W[q-15]));
+    }
+
+// todo permutation
+
+}
+
 
 int main() {
     string input = "abc";
     string p = padding(input);
-    cout <<p<<endl;
-    parsing(p);
+    //cout <<p<<endl;
+   // parsing(p);
     //test of M
-    for(int i=0 ; i<50 ; i++)
-        cout<<M[1]<<endl;
+/*    for(int i=0 ; i<50 ; i++)
+        cout<<M_512[1]<<endl;*/
 
-   /* string r =right_rotate(p, 2);
+    string r =right_rotate(p, 2);
     cout <<r << endl;
     string sh = right_shift("1100101",5);
-    cout <<endl << sh;
+    cout << sh;
 
 
-*/
+
     return 0;
 }

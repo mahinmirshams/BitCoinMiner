@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/applestore/CLionProjects/BitCoinMiner/main.cpp" "/Users/applestore/CLionProjects/BitCoinMiner/cmake-build-debug/CMakeFiles/phase_one.dir/main.cpp.o"
+  "/cygdrive/d/mahin/studying/unversity/6/FPGA/assignments/Final Project/phase one/main.cpp" "/cygdrive/d/mahin/studying/unversity/6/FPGA/assignments/Final Project/phase one/cmake-build-debug/CMakeFiles/phase_one.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

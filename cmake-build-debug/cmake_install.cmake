@@ -1,4 +1,4 @@
-# Install script for directory: /Users/applestore/CLionProjects/BitCoinMiner
+# Install script for directory: /cygdrive/d/mahin/studying/unversity/6/FPGA/assignments/Final Project/phase one
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/applestore/CLionProjects/BitCoinMiner/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/cygdrive/d/mahin/studying/unversity/6/FPGA/assignments/Final Project/phase one/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
