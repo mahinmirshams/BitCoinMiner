@@ -142,7 +142,13 @@ void expansion(string input  ){
         W[q] = sum_32_bit(sum_32_bit(sigma(W[q-1] ,1) ,W[q-6]) , sum_32_bit(sigma(W[q-12], 0), W[q-15]));
     }
 
-// todo permutation
+    //permutation
+    string temp_arr[64] = {"0"};
+
+    for(int n=0 ; n < 64 ; n++){
+        reverse(W[n].begin(), W[n].end());
+        temp_arr[64-n] = W[n];
+    }
 
 }
 
