@@ -63,10 +63,8 @@ string padding (string input){
 
 //parsing to 512 blocks
 int parsing (string input ){
-
     int i = 0;
     for (int index = 0; index < input.length(); index +=512) {
-
            // cout << input.substr(index, 512) << endl;
         M_512[i] = input.substr(index, 512);
         i++;
@@ -95,17 +93,54 @@ string right_shift(string s, int d){
 
     for (int i = d; i >= 0; i--) {
 
-
         s = '0' + s.substr(0, s.length() - 1);
-
 
     }
     return s;
 }
 
 string sum_32_bit(string str1 , string str2){
-    string sum = "0";
-    return sum ;
+    string sum_str ;
+    int sum[32] = {0} ;
+    int size1 = str1.length() , size2 =  str2.length();
+
+    char arr1[32] = {'0'}, arr2[32] = {'0'} , output[32];
+    int int_arr1[32]={0} , int_arr2[32]={0};
+    //turn string to char array
+    reverse(str1.begin() , str1.end());
+    reverse(str2.begin() , str2.end());
+    strcpy(arr1 , str1.c_str());
+    strcpy(arr2 , str2.c_str());
+    for (int i=0 ; i < 32 ; i++) {
+        //char array to int array
+        int_arr1[i] = arr1[i] - '0';
+        int_arr2[i] = arr2[i] - '0';
+        if(int_arr1[i] == (-48) ){
+            int_arr1[i] = 0;
+        }
+        if (int_arr2[i] == (-48)){
+            int_arr2[i] = 0;
+        }
+    }
+    // binary add (each digit)
+    for(int j = 0 ; j < 32 ; j++){
+      sum[j]+=int_arr1[j] + int_arr2[j];
+        if(sum[j]>=2){
+            sum[j] = 0;
+            sum[j+1] = 1;
+        }
+    }
+    //int to char array
+    for (int k = 0; k <32 ; ++k) {
+        output[k] = static_cast<char>(sum[k] + '0');
+    }
+    //char array to string
+    string str(output);
+    sum_str = str.substr(0 , 32);
+    reverse(sum_str.begin(),sum_str.end());
+    //cout<< sum_str<<endl;
+
+    return sum_str ;
 }
 
 
@@ -121,10 +156,6 @@ string sigma(string x , int num){
 
     }
     return  output ;
-}
-
-void permutaion_box(){
-
 }
 
 void expansion(string input  ){
@@ -162,10 +193,10 @@ int main() {
 /*    for(int i=0 ; i<50 ; i++)
         cout<<M_512[1]<<endl;*/
 
-    string r =right_rotate(p, 2);
+/*    string r =right_rotate(p, 2);
     cout <<r << endl;
     string sh = right_shift("1100101",5);
-    cout << sh;
+    cout << sh;*/
 
 
 
