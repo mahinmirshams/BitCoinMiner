@@ -6,7 +6,13 @@
 #include <type_traits>
 #include <limits>
 #include <vector>
+#include <algorithm>
+#include <cstring>
+
 using namespace std;
+
+string M[100] = {"0"};
+
 
 int calculate_expand(string input){
     int m=input.length()*8;
@@ -29,7 +35,7 @@ string msg_length_decimal_to_binary(string input){
     return binary;
 }
 
-string padding_and_parsing (string input){
+string padding (string input){
     //msg to binary
     string char_binary;
     for (int i  = 0; i <input.length() ; i++) {
@@ -48,8 +54,21 @@ string padding_and_parsing (string input){
     char_binary+=l_binary;
 
     //test
-    cout <<char_binary << ' ';
+   // cout <<char_binary << ' ';
     return char_binary;
+}
+
+//parsing to 512 blocks
+void parsing (string input){
+
+    int i = 0;
+    for (int index = 0; index < input.length(); index +=512) {
+
+           // cout << input.substr(index, 512) << endl;
+        M[i] = input.substr(index, 512);
+        i++;
+    }
+
 }
 
 
@@ -84,14 +103,19 @@ string right_shift(string s, int d){
 
 int main() {
     string input = "abc";
-    string p = padding_and_parsing(input);
-    cout << endl;
-    string r =right_rotate(p, 2);
+    string p = padding(input);
+    cout <<p<<endl;
+    parsing(p);
+    //test of M
+    for(int i=0 ; i<50 ; i++)
+        cout<<M[1]<<endl;
+
+   /* string r =right_rotate(p, 2);
     cout <<r << endl;
     string sh = right_shift("1100101",5);
     cout <<endl << sh;
 
 
-
+*/
     return 0;
 }
