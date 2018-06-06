@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstring>
+#include <math.h>
 
 using namespace std;
 
@@ -25,20 +26,20 @@ string *H5;
 string *H6;
 string *H7;
 
-uint k[64] = {
-        0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
-        0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
-        0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
-        0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
-        0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
-        0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
-        0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
-        0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+string K[64] = {
+        "428a2f98","71374491","b5c0fbcf","e9b5dba5","3956c25b","59f111f1","923f82a4","ab1c5ed5",
+        "d807aa98","12835b01","243185be","550c7dc3","72be5d74","80deb1fe","9bdc06a7","c19bf174",
+        "e49b69c1","efbe4786","0fc19dc6","240ca1cc","2de92c6f","4a7484aa","5cb0a9dc","76f988da",
+        "983e5152","a831c66d","b00327c8","bf597fc7","c6e00bf3","d5a79147","06ca6351","14292967",
+        "27b70a85","2e1b2138","4d2c6dfc","53380d13","650a7354","766a0abb","81c2c92e","92722c85",
+        "a2bfe8a1","a81a664b","c24b8b70","c76c51a3","d192e819","d6990624","f40e3585","106aa070",
+        "19a4c116","1e376c08","2748774c","34b0bcb5","391c0cb3","4ed8aa4a","5b9cca4f","682e6ff3",
+        "748f82ee","78a5636f","84c87814","8cc70208","90befffa","a4506ceb","bef9a3f7","c67178f2"
 };
 
 
-int calculate_expand(string input){
-    int m=input.length()*8;
+int calculate_expand(const string &input){
+    int m=(int)input.length()*8;
     int l = m%512;
     if(l<=448)
         return 448-l;
@@ -52,8 +53,8 @@ string decimal_to_binary(int decimal){
     return binary;
 }
 
-string msg_length_decimal_to_binary(string input){
-    int decimal=input.length()*8;
+string msg_length_decimal_to_binary(const string &input){
+    int decimal=(int)input.length()*8;
     std::string binary = std::bitset<64>(decimal).to_string();
     return binary;
 }
@@ -61,8 +62,8 @@ string msg_length_decimal_to_binary(string input){
 string padding (string input){
     //msg to binary
     string char_binary;
-    for (int i  = 0; i <input.length() ; i++) {
-        string d2b = decimal_to_binary((int)input.at(i)) ;
+    for (char i : input) {
+        string d2b = decimal_to_binary((int) i) ;
         char_binary+=d2b;
     }
 
@@ -82,9 +83,9 @@ string padding (string input){
 }
 
 //parsing to 512 blocks
-int parsing (string input ){
+int parsing (const string &input ){
     int i = 0;
-    for (int index = 0; index < input.length(); index +=512) {
+    for (unsigned long index = 0; index < input.length(); index +=512) {
            // cout << input.substr(index, 512) << endl;
         M_512[i] = input.substr(index, 512);
         i++;
@@ -98,12 +99,13 @@ string left_rotate(string s, int d)
     reverse(s.begin(), s.begin()+d);
     reverse(s.begin()+d, s.end());
     reverse(s.begin(), s.end());
+    return s;
 }
 
 // In-place rotates s towards right by d
 string right_rotate(string s, int d)
 {
-    left_rotate(s, s.length()-d);
+    left_rotate(s, (int)s.length()-d);
     return s;
 }
 
@@ -205,14 +207,14 @@ void expansion(string input){
 
 
 void init(){
-    A = 0x6a09e667;
-    B = 0xbb67ae85;
-    C = 0x3c6ef372;
-    D = 0xa54ff53a;
-    E = 0x510e527f;
-    F = 0x9b05688c;
-    G = 0x1f83d9ab;
-    H = 0x5be0cd19;
+    A = "6a09e667";
+    B = "bb67ae85";
+    C = "3c6ef372";
+    D = "a54ff53a";
+    E = "510e527f";
+    F = "9b05688c";
+    G = "1f83d9ab";
+    H = "5be0cd19";
 
     H0[0] = A;
     H1[0] = B;
@@ -256,7 +258,7 @@ string my_not (string a){
 
 string ch(string x, string y, string z){
     string a = my_and (x,y);
-    string b = my_and (x,my_not(y);
+    string b = my_and (x,my_not(y));
     string c = my_and (my_not(x),y);
     a = my_xor(a, b);
     return my_xor(a, c);
@@ -324,11 +326,11 @@ string subtract(string a, string b){
 
 }
 
-void  hash(string w, string k){
+void myhash(int i){
     string temp1 =add(H,SIGMA1(E));
     string temp2 =add(temp1,ch(E, F, G));
-    string temp3 =add(temp2,k);
-    string t2 = add(temp3, w);
+    string temp3 =add(temp2,K[i]);
+    string t2 = add(temp3, W[i]);
 
     string temp4 =add(SIGMA0(A), maj(A, B, C));
     string t1 = add(temp4,SIGMA2(C+D) );
@@ -346,12 +348,81 @@ void concatination(string *h, int N){
     h[N] = H0[N] + H1[N] + H2[N] + H3[N] + H4[N] + H5[N] + H6[N] + H7[N];
 }
 
+void hash_computation(int i, string *res){
+
+
+    for(int t=0; t<64; t++){
+
+        myhash(t);
+
+    }
+
+    H0[i] = A + H0[i-1];
+    H1[i] = B + H1[i-1];
+    H2[i] = C + H2[i-1];
+    H3[i] = D + H3[i-1];
+    H4[i] = E + H4[i-1];
+    H5[i] = F + H5[i-1];
+    H6[i] = G + H6[i-1];
+    H7[i] = H + H7[i-1];
+    concatination(res,i);
+}
+
+
+void sha_header(string s,string prevHash,string rootHash){
+    int i;
+    //version 02000000: 0000 0010
+    for(i=0; i<32; i++){
+        s[i] = 0;
+    }
+    s[6] = 1;
+    for (i=0; i<256; i++){
+        s[i+32]= prevHash[i];
+    }
+    for (i=0; i<256; i++){
+        s[i+288]= rootHash[i];
+    }
+    //end
+    for (i=0; i<128; i++){
+        s[i+544]= 0;
+    }
+    //timestamp : 00110101100010110000010101010011
+    s[544] = static_cast<char>(898303315);
+    //difficulty
+    s[576] = static_cast<char>(1397813529);
+
+}
+
+
+string pseudo_SHA256(string input, int length, int block_number, string hash_values, string header_values){
+
+    padding(input);
+    parsing(input);
+
+    expansion(input);
+
+
+    //init
+    init();
+    //hash
+    hash_computation(block_number, &hash_values);
+
+    if(block_number == 0){
+        sha_header(&header_values[0],&hash_values[0],&hash_values[0]);
+    }
+    else{
+        sha_header(&header_values[block_number],&hash_values[block_number-1],&hash_values[block_number]);
+    }
+
+    return hash_values;
+
+}
 
 
 int main() {
     string input = "abc";
     string p = padding(input);
-    //cout <<p<<endl;
+  //  cout <<p<<endl;
    // parsing(p);
     //test of M
 /*    for(int i=0 ; i<50 ; i++)
@@ -362,7 +433,21 @@ int main() {
     string sh = right_shift("1100101",5);
     cout << sh;*/
 
+    string header_values;
+    string hash_values;
 
+    string target = " 0.00000000000002816E0000000000000000000000000000000000000000000000";
+    int nonce = 0;
+    string hash = "1";
+    string block_header_l = header_values;
+    char str[100];
 
+    while(hash>target){
+        sprintf(str, "%d", nonce);
+        hash = pseudo_SHA256(pseudo_SHA256(str + block_header_l, 512, 0, hash_values, header_values),
+                             512, 0, hash_values, header_values);
+        nonce++;
+    }
+    cout << "\n" << hash;
     return 0;
 }
