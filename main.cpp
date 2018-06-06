@@ -15,6 +15,16 @@ string M_512[100] = {"0"};
 string M_32[100] = {"0"};
 string W[64]= {"0"};
 
+string A, B,C,D,E,F,G,H;
+string *H0;
+string *H1;
+string *H2;
+string *H3;
+string *H4;
+string *H5;
+string *H6;
+string *H7;
+
 
 
 int calculate_expand(string input){
@@ -183,6 +193,139 @@ void expansion(string input  ){
 
 }
 
+
+void init(){
+    A = 0x6a09e667;
+    B = 0xbb67ae85;
+    C = 0x3c6ef372;
+    D = 0xa54ff53a;
+    E = 0x510e527f;
+    F = 0x9b05688c;
+    G = 0x1f83d9ab;
+    H = 0x5be0cd19;
+
+    H0[0] = A;
+    H1[0] = B;
+    H2[0] = C;
+    H3[0] = D;
+    H4[0] = E;
+    H5[0] = F;
+    H6[0] = G;
+    H7[0] = H;
+}
+
+string my_xor (string a , string b){
+    string final_key;
+    for(int i = 0; i<a.length(); i++) {
+        final_key[i] = ((a[i] - '0') ^ (b[i] - '0')) + '0';
+    }
+    return final_key;
+}
+
+string my_and (string a , string b){
+    string final_key;
+    for(int i = 0; i<a.length(); i++) {
+        final_key[i] = (a[i] & b[i]);
+    }
+    return final_key;
+}
+
+string my_not (string a){
+    string final_key;
+    for(int i = 0; i<a.length(); i++) {
+        final_key[i] = not a[i];
+    }
+    return final_key;
+}
+
+
+string ch(string x, string y, string z){
+    string a = my_and (x,y);
+    string b = my_and (x,my_not(y);
+    string c = my_and (my_not(x),y);
+    a = my_xor(a, b);
+    return my_xor(a, c);
+}
+
+string maj(string x, string y, string z){
+    string a =  my_and (x,y);
+    string b =  my_and (x,y);
+    string c =  my_and (x,y);
+    a = my_xor(a, b);
+    return my_xor(a, c);
+}
+
+string SIGMA0(string x){
+    string a = right_rotate(x, 2);
+    string b = right_rotate(x, 13);
+    string c = right_rotate(x, 22);
+    string d = right_shift(x,7);
+    a = my_xor(a, b);
+    a = my_xor(a, c);
+    return my_xor(a, d);
+}
+
+string SIGMA1(string x){
+    string a = right_rotate(x, 6);
+    string b = right_rotate(x, 11);
+    string c = right_rotate(x, 25);
+    a = my_xor(a, b);
+    return my_xor(a, c);
+}
+
+string SIGMA2(string x){
+    string a = right_rotate(x, 2);
+    string b = right_rotate(x, 3);
+    string c = right_rotate(x, 15);
+    string d = right_shift(x,5);
+    a = my_xor(a, b);
+    a = my_xor(a, c);
+    return my_xor(a, d);
+}
+
+string multiply(string s, int d){
+    string final_key;
+    for(int i = 0; i<s.length(); i++) {
+        final_key[i] = d * s[i];
+    }
+    return final_key;
+
+}
+string add(string a, string b){
+    string final_key;
+    for(int i = 0; i<a.length(); i++) {
+        final_key[i] =  a[i] + b[i];
+    }
+    return final_key;
+
+}
+
+string subtract(string a, string b){
+    string final_key;
+    for(int i = 0; i<a.length(); i++) {
+        final_key[i] =  a[i] - b[i];
+    }
+    return final_key;
+
+}
+
+void  hash(string w, string k){
+    string temp1 =add(H,SIGMA1(E));
+    string temp2 =add(temp1,ch(E, F, G));
+    string temp3 =add(temp2,k);
+    string t2 = add(temp3, w);
+
+    string temp4 =add(SIGMA0(A), maj(A, B, C));
+    string t1 = add(temp4,SIGMA2(C+D) );
+    H = G;
+    F = E;
+    D = C;
+    B = A;
+    G = F;
+    E = D + t1;
+    C = B;
+    A = subtract(multiply(t1,3), t2);
+}
 
 int main() {
     string input = "abc";
