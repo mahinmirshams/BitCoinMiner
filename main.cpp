@@ -53,6 +53,39 @@ string decimal_to_binary(int decimal) {
     return binary;
 }
 
+char binary_to_decimal(string binary) {
+    std::bitset<4> bs = std::bitset<4>(binary);
+    auto decimal = bs.to_ulong();
+    char res;
+    if (decimal < 10) {
+        res = (char)('0' + decimal);
+    } else {
+        res = (char)('a' + (decimal - 10));
+    }
+    return res;
+}
+
+string bin2hex(string input) {
+    string result;
+    for (unsigned long i = 0; i < input.length() / 4; i++) {
+        result += binary_to_decimal(input.substr(i*4, (i+1)*4));
+    }
+    return result;
+}
+string hex2bin(string input) {
+    string result;
+    for (auto c : input) {
+        int decimal;
+        if (c >= '0' && c <= '9') {
+            decimal = c - '0';
+        } else {
+            decimal = c - 'a' + 10;
+        }
+        result += decimal_to_binary(decimal).substr(4, 8);
+    }
+    return result;
+}
+
 string msg_length_decimal_to_binary(const string &input) {
     int decimal = (int) input.length() * 8;
     std::string binary = std::bitset<64>(decimal).to_string();
@@ -95,24 +128,30 @@ int parsing(const string &input) {
 }
 
 string left_rotate(string s, int d) {
+    s = hex2bin(s);
     reverse(s.begin(), s.begin() + d);
     reverse(s.begin() + d, s.end());
     reverse(s.begin(), s.end());
+    s = bin2hex(s);
     return s;
 }
 
 // In-place rotates s towards right by d
 string right_rotate(string s, int d) {
-    left_rotate(s, (int) s.length() - d);
+    s = hex2bin(s);
+    auto theD = (int) s.length() - d;
+    s = bin2hex(s);
+    left_rotate(s, theD);
     return s;
 }
 
 
 string right_shift(string s, int d) {
-
+    s = hex2bin(s);
     for (int i = d; i >= 0; i--) {
         s = '0' + s.substr(0, s.length() - 1);
     }
+    s = bin2hex(s);
     return s;
 }
 
@@ -407,7 +446,7 @@ string pseudo_SHA256(string input) {
 int main() {
     string input = "abc";
     string p = padding(input);
-    //cout << p << endl;
+    cout << p << endl;
     // parsing(p);
     //test of M
 /*    for(int i=0 ; i<50 ; i++)
@@ -428,6 +467,7 @@ int main() {
     char str[100];
 
     while (hash > target) {
+
         hash = pseudo_SHA256(
                 pseudo_SHA256(str + block_header_l)
         );
