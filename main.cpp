@@ -428,7 +428,6 @@ int main() {
     char str[100];
 
     while (hash > target) {
-        sprintf(str, "%d", nonce);
         hash = pseudo_SHA256(
                 pseudo_SHA256(str + block_header_l)
         );
