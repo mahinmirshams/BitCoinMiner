@@ -7,7 +7,7 @@ PACKAGE BUFFON IS type input_arrray_t is array (31 downto 0) of std_logic_vector
 
 --
 entity expansion is 
-   port(block : in std_logic_vector(511 downto 0);
+   port(block512 : in std_logic_vector(511 downto 0);
         ans : out BUFFON2);
 end expansion;
 --
@@ -49,20 +49,17 @@ function sigma0 (w,res : std_logic_vector(31 downto 0) ) return std_logic_vector
 
 begin
   identifier : process( w )
-  begin
-
-      variable t := '0';
-      variable i := '0';
-      variable s0 := "00000000000000000000000000000000";
-      variable s1 := "00000000000000000000000000000000";
-      
-      
-      process (A)
+  variable t : integer:= '0';
+  variable i : integer:= '0';
+  variable s0 :std_logic_vector:= "00000000000000000000000000000000";
+  variable s1 :std_logic_vector:= "00000000000000000000000000000000";
+  
+  
 begin
 
     for t in 0 to 15 loop
         for i in 0 to 31 loop
-            w(t)(i) = block(t * 32 + i);
+            w(t)(i) <= block512(t * 32 + i);
         
       end loop;
     end loop;
@@ -74,7 +71,7 @@ begin
         s0 <= sigma0(w(t - 12));
 
         for i in 0 to 31 loop
-            w(t)(i) = (s1(i) + w(t - 6)(i) + s0(i) + w(t)- 18)(i)) % 2;
+            w(t)(i) <= (s1(i) + w(t - 6)(i) + s0(i) + w(t- 18)(i)) mod 2;
         
         end loop;
     end loop;    

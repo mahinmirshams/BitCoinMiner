@@ -7,39 +7,37 @@ use ieee.std_logic_1164.all;
 
 --
 entity permutation is 
-   port(block : in BUFFON;
+   port(block64_32 : in BUFFON;
         ans : out BUFFON);
 end permutation;
 --
 
 
-signal w : BUFFON;
 
 
 architecture behavioral of permutation is 
+signal w : BUFFON;
 
 begin
   identifier : process( w )
-  begin
-      variable i := '0';
-      variable temp := '0';
-      
-      process (A)
+  variable i :integer := '0';
+  variable temp : integer := '0';
+  
 begin
 
     for t in 0 to 31 loop
-        temp = w(31 - i);
-        w(31 - i) = w(i);
-        w(i) = temp;
+        temp <= w(31 - i);
+        w(31 - i) <= w(i);
+        w(i) <= temp;
     end loop;
 
 
     
 
         for i in 0 to 7 loop
-            temp = w(8 + i);
-        w(16 + i) = w(15 - i);
-        w(15 - i) = temp;
+            temp <= w(8 + i);
+        w(16 + i) <= w(15 - i);
+        w(15 - i) <= temp;
         
     end loop;    
     end process;    
