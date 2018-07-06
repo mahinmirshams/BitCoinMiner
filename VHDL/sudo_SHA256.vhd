@@ -34,6 +34,10 @@ PACKAGE MyType IS
     type array2d_64_32 is array (63 downto 0) of std_logic_vector(31 downto 0);
     type array2d_8_32 is array (0 to 7) of std_logic_vector(31 downto 0);
  END PACKAGE MyType; 
+ PACKAGE BUFFON IS type input_arrray_t is array (63 downto 0) of std_logic_vector( 31 downto 0 );
+ END PACKAGE BUFFON;  
+ PACKAGE BUFFON2 IS type padded_arrray_t is array (63 downto 0) of std_logic_vector(511 downto 0) ;
+ END PACKAGE BUFFON2; 
 
 entity sudo_SHA256 is
     generic(N : integer);
@@ -51,6 +55,29 @@ entity sudo_SHA256 is
 end sudo_SHA256;
 
 architecture Behavioral of sudo_SHA256 is
+    -- padding
+    component paddinng
+    generic(
+        input_var : INTEGER); --check
+    );
+    port(msg : in std_logic_vector((input_var-1) downto 0);
+        length : in std_logic;
+        ans : out padded_arrray_t);
+    end component;
+
+    --expansion
+    component expansion
+    port(block512 : in std_logic_vector(511 downto 0);
+        ans : out BUFFON);
+    end component;
+
+    --compression
+    component compression
+    Port ( W , K : in MyType;
+           ready: in std_logic;
+           Hn :  out std_logic_vector(255 downto 0));
+    end component;
+
 
 --other entities components
 
@@ -58,7 +85,19 @@ type state_type is (IDLE, BUSY_padding , BUSY_parsing , BUSY_expasion  , BUSY_co
 signal state : state_type;
 
 signal W : array2d_64_32;
+signal length : std_logic;
+signal ans_padding : BUFFON2;
+
+signal block512 : std_logic_vector(511 downto 0);
+signal ans_expansion : BUFFON;
+
+signal W , K : MyType;
+signal ready: std_logic;
+signal Hn :  std_logic_vector(255 downto 0);
+
+
 signal current_w : std_logic_vector(31 downto 0);
+
 
 -- Final hash values
 signal Hi : array2d_8_32;
@@ -68,9 +107,20 @@ signal A, B, C, D, Ei, F, G, H : std_logic_vector(31 downto 0);
 
 begin
 
+    padding1: padding
+    generic map (input_var  => 24)
+    port map (msg => message, length => length, ans=>ans_padding);
+
+    expansion1: expansion
+    port map (block512 => block512, ans=>ans_expansion);
+
+    compression1: compression
+    port map (W => ans_expansion, K=>K, ready => ready , Hn => Hn); --check kon jahataro
+
 ready <= '1' when state = IDLE else '0';
 
 hasher: process(clk, reset, enable)
+    variable i : integer =: '0';
 	begin
 		if reset = '1' then
 		-- set reset to other entites
@@ -99,7 +149,19 @@ hasher: process(clk, reset, enable)
 						--schedule(word_input, W, current_iteration),
 						--constants(index(current_iteration)));
 
-				    --
+                    --
+                    
+                         for i in 0 to 63 loop
+                            block512 <= ans_padding(i);
+                        end loop ; 
+                        
+                                --k haro ezafe kon
+
+                    
+
+
+
+
 						state <= FINAL;
 					
 					
