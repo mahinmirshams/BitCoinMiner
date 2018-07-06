@@ -1,14 +1,17 @@
 library ieee;
 use ieee.std_logic_1164.all;
-PACKAGE BUFFON IS type input_arrray_t is array (31 downto 0) of std_logic_vector( 0 to 15 );
- END PACKAGE BUFFON; 
- PACKAGE BUFFON2 IS type input_arrray_t is array (63 downto 0) of INTEGER range 0 to 31 ;
- END PACKAGE BUFFON2; 
+-- PACKAGE BUFFON IS type input_arrray_t is array (31 downto 0) of std_logic_vector( 0 to 15 );
+--  END PACKAGE BUFFON; 
+--  PACKAGE BUFFON2 IS type input_arrray_t is array (63 downto 0) of INTEGER range 0 to 31 ;
+--  END PACKAGE BUFFON2;
+
+ PACKAGE BUFFON IS type input_arrray_t is array (63 downto 0) of std_logic_vector( 31 downto 0 );
+ END PACKAGE BUFFON;  
 
 --
 entity expansion is 
    port(block512 : in std_logic_vector(511 downto 0);
-        ans : out BUFFON2);
+        ans : out BUFFON);
 end expansion;
 --
 
@@ -27,6 +30,7 @@ function sigma0 (w,res : std_logic_vector(31 downto 0) ) return std_logic_vector
       s0 <= w srl 12;
       tmp <= r1 xor r2;
       res <= tmp xor s0;
+      return res;
     
   end sigma0;
 
@@ -42,6 +46,7 @@ function sigma0 (w,res : std_logic_vector(31 downto 0) ) return std_logic_vector
       s0 <= w srl 9;
       tmp <= r1 xor r2;
       res <= tmp xor s0;
+      return res;
     
   end sigma1;
 
@@ -75,5 +80,7 @@ begin
         
         end loop;
     end loop;    
+
+    ans <= w;
     end process;    
 end behavioral;
