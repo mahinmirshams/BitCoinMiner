@@ -18,7 +18,7 @@ entity test_padding is
        
         
         
-        component  pasding
+        component  padding
         generic(
             input_var : INTEGER := 24);   
         );
