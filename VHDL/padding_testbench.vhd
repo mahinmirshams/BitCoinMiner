@@ -15,11 +15,7 @@ entity test_padding is
     architecture Behavioral of test_padding is
 
 
-        signal   msg :  std_logic_Vector(7 downto 0);
-        signal   length :  std_logic_vector (2 downto 0);
-        signal   ans :  std_logic_vector (7 downto 0);
-
-
+       
         
         
         component  pasding
@@ -29,9 +25,13 @@ entity test_padding is
         port
             (msg : in std_logic_vector((input_var-1) downto 0);
             length : in std_logic;
-            ans : out BUFFON2);
+            ans : out padded_arrray_t);
         end component;
        
+        signal   msg :  std_logic_Vector(23 downto 0);
+        signal   length :  std_logic;
+        signal   ans : padded_array_t);
+
 
 
     begin
