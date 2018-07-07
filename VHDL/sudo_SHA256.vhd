@@ -18,9 +18,13 @@
 -- 
 ----------------------------------------------------------------------------------
 
+library ieee;
+use ieee.std_logic_1164.all;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+use IEEE.STD_LOGIC_ARITH.all;
+use IEEE.STD_LOGIC_UNSIGNED.all;
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -34,9 +38,11 @@ PACKAGE MyType IS
     type array2d_64_32 is array (63 downto 0) of std_logic_vector(31 downto 0);
     type array2d_8_32 is array (0 to 7) of std_logic_vector(31 downto 0);
  END PACKAGE MyType; 
- PACKAGE BUFFON IS type input_arrray_t is array (63 downto 0) of std_logic_vector( 31 downto 0 );
+ PACKAGE BUFFON IS type 
+    input_arrray_t is array (63 downto 0) of std_logic_vector( 31 downto 0 );
  END PACKAGE BUFFON;  
- PACKAGE BUFFON2 IS type padded_arrray_t is array (63 downto 0) of std_logic_vector(511 downto 0) ;
+ PACKAGE BUFFON2 IS type
+     padded_arrray_t is array (63 downto 0) of std_logic_vector(511 downto 0) ;
  END PACKAGE BUFFON2; 
 
 entity sudo_SHA256 is
@@ -59,7 +65,6 @@ architecture Behavioral of sudo_SHA256 is
     component paddinng
     generic(
         input_var : INTEGER); --check
-    );
     port(msg : in std_logic_vector((input_var-1) downto 0);
         length : in std_logic;
         ans : out padded_arrray_t);
@@ -120,7 +125,7 @@ begin
 ready <= '1' when state = IDLE else '0';
 
 hasher: process(clk, reset, enable)
-    variable i : integer =: '0';
+    variable i : integer := '0';
 	begin
 		if reset = '1' then
 		-- set reset to other entites

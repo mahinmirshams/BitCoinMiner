@@ -1,17 +1,20 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use work.pkg.all;
 use ieee.numeric_std.all;
 
 
 PACKAGE MyType IS 
-    type array2d_64_32 is array (63 downto 0) of std_logic_vector(31 downto 0);
-    type array2d_8_32 is array (0 to 7) of std_logic_vector(31 downto 0);
+    type array2d_64_32 is array (0 to 63) of unsigned(31 downto 0);
+    type array2d_8_32 is array (0 to 7) of unsigned(31 downto 0);
  END PACKAGE MyType; 
-
+ 
+library IEEE;
+ use IEEE.STD_LOGIC_1164.ALL;
+ use work.MyType.all;
+ use ieee.numeric_std.all;
 
 entity compression is
-    Port ( W , K : in MyType;
+    Port ( W , K : in array2d_64_32;
            ready  , en , rst: in std_logic;
            Hi : in array2d_8_32;
            Hn :  out array2d_8_32);
@@ -19,42 +22,42 @@ end compression;
 
 architecture RTL of compression is
 
-signal A  : std_logic_vector(31 downto 0) := x"6a09e667";
-signal B  : std_logic_vector(31 downto 0) := x"bb67ae85";
-signal C  : std_logic_vector(31 downto 0) := x"3c6ef372";
-signal D  : std_logic_vector(31 downto 0) := x"a54ff53a";
-signal Ei : std_logic_vector(31 downto 0) := x"510e527f";
-signal F  : std_logic_vector(31 downto 0) := x"9b05688c";
-signal G  : std_logic_vector(31 downto 0) := x"1f83d9ab";
-signal H  : std_logic_vector(31 downto 0) := x"5be0cd19";
+signal A  : unsigned(31 downto 0) := x"6a09e667";
+signal B  : unsigned(31 downto 0) := x"bb67ae85";
+signal C  : unsigned(31 downto 0) := x"3c6ef372";
+signal D  : unsigned(31 downto 0) := x"a54ff53a";
+signal Ei : unsigned(31 downto 0) := x"510e527f";
+signal F  : unsigned(31 downto 0) := x"9b05688c";
+signal G  : unsigned(31 downto 0) := x"1f83d9ab";
+signal H  : unsigned(31 downto 0) := x"5be0cd19";
 
 
-function ch (x, y, z : std_logic_vector(31 downto 0) ) return std_logic_vector is
+function ch (x, y, z : unsigned(31 downto 0) ) return unsigned is
 begin
     return (x and y) xor ((not y) and z) xor ((not x) and z);
 end ch;
 
-function maj (x, y, z : std_logic_vector(31 downto 0) ) return std_logic_vector is
+function maj (x, y, z : unsigned(31 downto 0) ) return unsigned is
 begin
     return (x and y) xor (x and z) xor (y and z);
 end maj;
 
-function sigma0 (x : std_logic_vector(31 downto 0) ) return std_logic_vector is
+function sigma0 (x : unsigned(31 downto 0) ) return unsigned is
 begin
-return std_logic_vector((x ror 2) xor (x ror 13) xor (x ror 22) xor (x srl 7));
+return unsigned((x ror 2) xor (x ror 13) xor (x ror 22) xor (x srl 7));
 end sigma0;
 
-function sigma1 (x : std_logic_vector(31 downto 0) ) return std_logic_vector is
+function sigma1 (x : unsigned(31 downto 0) ) return unsigned is
 begin
-    return std_logic_vector((x ror 6) xor (x ror 11) xor ( x ror 25));
+    return (x ror 6) xor (x ror 11) xor ( x ror 25);
 end sigma1;
 
-function sigma2 (x : std_logic_vector(31 downto 0) ) return std_logic_vector is
+function sigma2 (x : unsigned(31 downto 0) ) return unsigned is
 begin
-    return std_logic_vector((x ror 2) xor (x ror 3) xor (x ror 15) xor (x srl 5));
+    return (x ror 2) xor (x ror 3) xor (x ror 15) xor (x srl 5);
 end sigma2;
 
-signal temp1, temp2 : std_logic_vector(31 downto 0);
+signal temp1, temp2 : unsigned(31 downto 0);
 begin
 
 process( ready )
