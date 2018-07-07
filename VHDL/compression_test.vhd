@@ -1,12 +1,18 @@
 library IEEE;
+library work;
 use IEEE.STD_LOGIC_1164.ALL;
-use work.pkg.all;
 use ieee.numeric_std.all;
 
 PACKAGE MyType IS 
-    type array2d_64_32 is array (63 downto 0) of std_logic_vector(31 downto 0);
+    type array2d_64_32 is array (0 to 63) of std_logic_vector(31 downto 0);
     type array2d_8_32 is array (0 to 7) of std_logic_vector(31 downto 0);
  END PACKAGE MyType; 
+ 
+library IEEE;
+library work;
+ use IEEE.STD_LOGIC_1164.ALL;
+ use work.MyType.all;
+ use ieee.numeric_std.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -24,16 +30,16 @@ end test_compression;
 architecture Behavioral of test_compression is
 
 component compression is
-    Port ( W , K : in MyType;
+    Port ( W , K : in array2d_64_32;
     clk  , en , rst: in std_logic;
     Hi : in array2d_8_32;
     Hn :  out array2d_8_32);
 end component;
 
-signal w1, k:  arr2d; 
-signal hi: arr8_33;
+signal w1, k:  array2d_64_32; 
+signal hi: array2d_8_32;
 signal rst, clk, en1: std_logic := '0';
-signal hn: arr8_32;
+signal hn: array2d_8_32;
 
 begin
 

@@ -15,7 +15,7 @@ library IEEE;
 
 entity compression is
     Port ( W , K : in array2d_64_32;
-           ready  , en , rst: in std_logic;
+           clk  , en , rst: in std_logic;
            Hi : in array2d_8_32;
            Hn :  out array2d_8_32);
 end compression;
@@ -60,7 +60,7 @@ end sigma2;
 signal temp1, temp2 : unsigned(31 downto 0);
 begin
 
-process( ready )
+process(clk  )
 begin 
     if (en = '1') then
     if(rst = '1')then
@@ -72,7 +72,7 @@ begin
              F  <= x"9b05688c";
              G  <= x"1f83d9ab";
              H  <= x"5be0cd19";
-    elsif (ready = '1') then
+    elsif (clk = '1') then
      for i in 0 to 63 loop
          temp2 <= H + sigma1(Ei) + ch(Ei, F, G) + K(i) + W(i);
          temp1 <= sigma0(A) + maj(A , B , C) + sigma2(C + D);

@@ -39,8 +39,8 @@ begin
   identifier : process( w )
   variable t : integer:= 0;
   variable i : integer:= 0;
-  variable s0 :unsigned:= "00000000000000000000000000000000";
-  variable s1 :unsigned := "00000000000000000000000000000000";
+  variable s0 :unsigned(31 downto 0 ):= "0";
+  variable s1 :unsigned (31 downto 0 ):= "0";
   
   
 begin
@@ -59,7 +59,8 @@ begin
         s0 := sigma0(w(t - 12));
 
         for i in 0 to 31 loop
-            w(t)(i) <= ((s1(i) + w(t - 6)(i) + s0(i) + w(t- 18)(i)) mod 2);
+           -- w(t)(i) <= ((s1(i) + w(t - 6)(i) + s0(i) + w(t- 18)(i)) mod 2);
+           w(t)(i) <=(s1(i) + w(t - 6)(i));
         
         end loop;
     end loop;    

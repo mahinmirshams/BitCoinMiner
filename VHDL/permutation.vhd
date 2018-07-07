@@ -1,8 +1,6 @@
-library ieee;
-use IEEE.STD_LOGIC_1164.all;
-use IEEE.NUMERIC_STD.all;
-use IEEE.STD_LOGIC_ARITH.all;
-use IEEE.STD_LOGIC_UNSIGNED.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.numeric_std.all;
 
 --PACKAGE BUFFON1 IS type input_arrray_t is array (31 downto 0) of INTEGER range 0 to 15 ;
  --END PACKAGE BUFFON1; 
@@ -12,16 +10,14 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
  input_arrray_t is array (63 downto 0) of std_logic_vector( 31 downto 0 );
  END PACKAGE BUFFON;  
  
- library ieee;
- use IEEE.STD_LOGIC_1164.all;
- use IEEE.NUMERIC_STD.all;
- use IEEE.STD_LOGIC_ARITH.all;
- use IEEE.STD_LOGIC_UNSIGNED.all;
+library IEEE;
+ use IEEE.STD_LOGIC_1164.ALL;
  use work.BUFFON.all;
-
+ use ieee.numeric_std.all;
 --
 entity permutation is 
-   port(block64_32 : in input_arrray_t;
+   port(
+        block64_32 : in input_arrray_t;
         ans : out input_arrray_t);
 end permutation;
 --

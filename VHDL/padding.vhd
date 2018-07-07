@@ -1,27 +1,24 @@
-library ieee;
-use IEEE.STD_LOGIC_1164.all;
-use IEEE.NUMERIC_STD.all;
-use IEEE.STD_LOGIC_ARITH.all;
-use IEEE.STD_LOGIC_UNSIGNED.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.numeric_std.all;
 
 
-
- PACKAGE BUFFON2 IS type padded_arrray_t is array (63 downto 0) of std_logic_vector(511 downto 0) ;
+ PACKAGE BUFFON2 IS type 
+    padded_arrray_t is array (63 downto 0) of unsigned(511 downto 0) ;
  END PACKAGE BUFFON2; 
 
-library ieee;
-use IEEE.STD_LOGIC_1164.all;
-use IEEE.NUMERIC_STD.all;
-use IEEE.STD_LOGIC_ARITH.all;
-use IEEE.STD_LOGIC_UNSIGNED.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
 use work.BUFFON2.all;
+use ieee.numeric_std.all;
+
 --
 entity padding is 
 generic(
-        input_var : INTEGER   );
+        input_var : unsigned := "11000" );
    port(
-        msg : in std_logic_vector((input_var-1) downto 0);
-        length : in std_logic;
+        msg : in unsigned((to_integer(input_var)-1) downto 0);
+        length1 : in unsigned(to_integer(input_var) downto 0);
         ans : out padded_arrray_t);
 end padding;
 --
@@ -30,29 +27,29 @@ end padding;
 
 architecture behavioral of padding is 
 
-signal message : std_logic_vector(511 downto 0);
+signal message : unsigned(511 downto 0);
 
 begin
   identifier : process( msg )
-  variable blocknum : integer:= length / 512 + 1;
-  variable tmp : integer:= length mod 512;
-  variable binaryNum : std_logic_vector(63 downto 0);
-  variable k :integer := 0;
-  variable i :integer := 0;
-  variable j :integer := 0;
-  variable x :integer := 0;
-  variable remainingLength :integer := input_var;
+  variable blocknum : unsigned ;
+  variable tmp : unsigned;
+  variable k : unsigned;
+  variable binaryNum : unsigned(63 downto 0);
+  variable remainingLength :unsigned := unsigned(input_var);
   
   
 begin
+    blocknum := length1 / 512;
+    blocknum := blocknum +1 ;
+    tmp := length1 mod 512;
 
-    for j in 0 to (blocknum - 2) loop
-        ans(j) <= msg(remainingLength downto remainingLength-512);
+    for j in 0 to (to_integer(blocknum) - 2) loop
+        ans(j) <= msg(to_integer(remainingLength) downto to_integer(remainingLength)-512);
         remainingLength := remainingLength - 512;
     end loop;
 
-    message(511 downto 512-remainingLength) <= msg(remainingLength downto 0); -- shak!
-    message(511-remainingLength) <= '1'; -- shak!
+    message(511 downto 512 - to_integer(remainingLength)) <= msg(to_integer(remainingLength) downto 0); -- shak!
+    message(511-to_integer(remainingLength)) <= '1'; -- shak!
 
     if tmp < 448 then
         k := 448 - tmp - 1;
@@ -61,15 +58,15 @@ begin
         k := tmp + 511;
     end if;
 
-    for i in 0 to (k-1) loop
-        message(511 - remainingLength-1-i) <= '0';
+    for i in 0 to (to_integer(k)-1) loop
+        message(511 - to_integer(remainingLength)-1-i) <= '0';
     end loop;
 
-   -- binaryNum := std_logic_vector(63 downto 0) (remainingLength);
+    binaryNum := remainingLength;
 
     message(63 downto 0) <= binaryNum(63 downto 0);
 
-    ans(blocknum-1) <= message;
+    ans(to_integer(blocknum)-1) <= message;
 
     end process;    
 end behavioral;
