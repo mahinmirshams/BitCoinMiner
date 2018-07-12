@@ -2,7 +2,7 @@ library IEEE;
 library work;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
-use work.BUFFON.all;.all;
+use work.BUFFON.all;
 
 entity sha256 is generic(input_var : integer := 24);
   Port (
