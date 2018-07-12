@@ -68,14 +68,13 @@ architecture behavioral of expansion is
             return outp;
     end function;
 
-signal s0 , s1 : std_logic_vector(31 downto 0);
+--signal s0 , s1 : std_logic_vector(31 downto 0);
 
 
 begin
   identifier : process( block512 )
-  variable w : arr_stdVector(63 downto 0);
-  variable t : integer:= 0;
-  variable i : integer:= 0;
+  variable w : arr_stdVector(0 to 63);
+
 
 begin
 
@@ -85,9 +84,10 @@ begin
 
 
 for t in 16 to 63 loop 
-    s1 <= sigma1(w(t - 1));
-    s0 <= sigma0(w(t - 12));
-       w(t) := std_logic_vector(unsigned(s1) + unsigned(w(t - 6)) + unsigned(s0) + unsigned(w(t- 15)));
+--    s1 <= sigma1(w(t - 1));
+--    s0 <= sigma0(w(t - 12));
+       --w(t) := std_logic_vector(unsigned(s1) + unsigned(w(t - 6)) + unsigned(s0) + unsigned(w(t- 15)));
+	  w(t) := std_logic_vector(unsigned(sigma1(w(t-1))) + unsigned(w(t-6)) + unsigned(sigma0(w(t-12))) + unsigned(w(t-15)));
 end loop; 
 
         for i in 0 to 63 loop
