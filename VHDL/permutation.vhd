@@ -26,22 +26,24 @@ architecture behavioral of permutation is
 signal w : input_arrray_t;
 
 begin
-  identifier : process( w )
-  variable i :integer := '0';
-  variable temp : integer := '0';
+  identifier : process
+  variable i :integer := 0;
+  variable temp : std_logic_vector(31 downto 0):="00000000000000000000000000000000";
   
 begin
+    
+   w<= block64_32;
 
-    for t in 0 to 31 loop
-        temp <= w(31 - i);
-        w(31 - i) <= w(i);
+   for t in 0 to 31 loop
+       temp := w(31 - i);
+       w(31 - i) <= w(i);
         w(i) <= temp;
     end loop;
 
     for i in 0 to 7 loop
-        temp <= w(8 + i);
-        w(16 + i) <= w(15 - i);
-        w(15 - i) <= temp;
+       temp := w(8 + i);
+       w(16 + i) <= w(15 - i);
+       w(15 - i) <= temp;
     end loop;    
 
     ans <= w;

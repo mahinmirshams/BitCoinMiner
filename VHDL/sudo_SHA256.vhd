@@ -76,6 +76,14 @@ architecture Behavioral of sudo_SHA256 is
         ans : out BUFFON);
     end component;
 
+    --permutation
+
+    component permutation
+    port(
+        block64_32 : in input_arrray_t;
+        ans : out input_arrray_t);
+    end component;
+
     --compression
     component compression
     Port ( W , K : in MyType;
@@ -95,6 +103,9 @@ signal ans_padding : BUFFON2;
 
 signal block512 : std_logic_vector(511 downto 0);
 signal ans_expansion : BUFFON;
+
+signal  block64_32 :  input_arrray_t;
+signal ans_permutation :  input_arrray_t;
 
 signal W , K : MyType;
 signal ready: std_logic;
@@ -119,8 +130,11 @@ begin
     expansion1: expansion
     port map (block512 => block512, ans=>ans_expansion);
 
+    permutation1: permutation
+    port map (ans_expansion => block64_32, ans=>ans_permutation);
+
     compression1: compression
-    port map (W => ans_expansion, K=>K, ready => ready , Hn => Hn); --check kon jahataro
+    port map (W => ans_permutation, K=>K, ready => ready , Hn => Hn); --check kon jahataro
 
 ready <= '1' when state = IDLE else '0';
 
