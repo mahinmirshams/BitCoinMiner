@@ -1,0 +1,33 @@
+library ieee;
+library work;
+use ieee.std_logic_1164.all;
+use work.BUFFON2.all;
+
+entity test_expansion is
+    end test_expansion;
+    
+architecture Behavioral of test_expansion is
+
+--
+component expansion is 
+   port(block512 : in  std_logic_vector(511 downto 0);
+        ans : out arr_stdVector(0 to 63)
+		);
+end component;
+--
+       
+        signal   block512  :  std_logic_vector(511 downto 0);
+        signal   ans  :  arr_stdVector(0 to 63);
+ 
+
+
+    begin
+        Myexpansion : expansion 
+        port map (block512 => block512, ans => ans);
+        process
+        begin
+            block512 <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011000010110001001100011";
+            wait for 30 ns;
+        end process;
+        
+    end Behavioral;
