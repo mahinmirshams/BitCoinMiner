@@ -191,11 +191,11 @@ int padding(const unsigned char *msg, int length, unsigned long *result) {
         result[k + length + i] = binaryNum[x];
     }
 
-    printf("Padded Message:\n");
-    for (i = 0; i < 512; i++) {
-        printf("%lu", result[i]);
-    }
-    printf("\n\n");
+//    printf("Padded Message:\n");
+//    for (i = 0; i < 512; i++) {
+//        printf("%lu", result[i]);
+//    }
+//    printf("\n\n");
 
     return blocks;
 }

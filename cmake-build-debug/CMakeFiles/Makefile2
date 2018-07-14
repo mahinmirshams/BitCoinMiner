@@ -45,54 +45,54 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = "/cygdrive/c/Users/mahin mirshams/.CLion2017.2/system/cygwin_cmake/bin/cmake.exe"
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = "/cygdrive/c/Users/mahin mirshams/.CLion2017.2/system/cygwin_cmake/bin/cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/applestore/CLionProjects/BitCoinMine
+CMAKE_SOURCE_DIR = "/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/applestore/CLionProjects/BitCoinMine/cmake-build-debug
+CMAKE_BINARY_DIR = "/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/cmake-build-debug"
 
 #=============================================================================
-# Target rules for target CMakeFiles/phase_one.dir
+# Target rules for target CMakeFiles/c.dir
 
 # All Build rule for target.
-CMakeFiles/phase_one.dir/all:
-	$(MAKE) -f CMakeFiles/phase_one.dir/build.make CMakeFiles/phase_one.dir/depend
-	$(MAKE) -f CMakeFiles/phase_one.dir/build.make CMakeFiles/phase_one.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/applestore/CLionProjects/BitCoinMine/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target phase_one"
-.PHONY : CMakeFiles/phase_one.dir/all
+CMakeFiles/c.dir/all:
+	$(MAKE) -f CMakeFiles/c.dir/build.make CMakeFiles/c.dir/depend
+	$(MAKE) -f CMakeFiles/c.dir/build.make CMakeFiles/c.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Built target c"
+.PHONY : CMakeFiles/c.dir/all
 
 # Include target in all.
-all: CMakeFiles/phase_one.dir/all
+all: CMakeFiles/c.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/phase_one.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/applestore/CLionProjects/BitCoinMine/cmake-build-debug/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/phase_one.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/applestore/CLionProjects/BitCoinMine/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/phase_one.dir/rule
+CMakeFiles/c.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/cmake-build-debug/CMakeFiles" 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/c.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/c.dir/rule
 
 # Convenience name for target.
-phase_one: CMakeFiles/phase_one.dir/rule
+c : CMakeFiles/c.dir/rule
 
-.PHONY : phase_one
-
-# clean rule for target.
-CMakeFiles/phase_one.dir/clean:
-	$(MAKE) -f CMakeFiles/phase_one.dir/build.make CMakeFiles/phase_one.dir/clean
-.PHONY : CMakeFiles/phase_one.dir/clean
+.PHONY : c
 
 # clean rule for target.
-clean: CMakeFiles/phase_one.dir/clean
+CMakeFiles/c.dir/clean:
+	$(MAKE) -f CMakeFiles/c.dir/build.make CMakeFiles/c.dir/clean
+.PHONY : CMakeFiles/c.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/c.dir/clean
 
 .PHONY : clean
 

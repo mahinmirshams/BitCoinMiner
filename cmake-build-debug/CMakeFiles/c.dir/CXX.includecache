@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/common.cpp
+stdio.h
+-
+cstring
+-
+common.h
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/common.h
+
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/common.h
+
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/main.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+common.h
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/common.h
+sha256.h
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/sha256.h
+
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/sha256.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+sha256.h
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/sha256.h
+common.h
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/common.h
+
+/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/sha256.h
+

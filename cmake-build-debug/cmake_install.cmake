@@ -1,4 +1,4 @@
-# Install script for directory: /Users/applestore/CLionProjects/BitCoinMine
+# Install script for directory: /cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/applestore/CLionProjects/BitCoinMine/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/cygdrive/c/Users/mahin mirshams/Downloads/Telegram Desktop/BitCoinProject_9431808_9431810/BitCoinProject_9431808_9431810/Cpp/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
